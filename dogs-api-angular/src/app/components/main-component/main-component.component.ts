@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DogBreed } from '../DogBreed';
-import { ApiServiceService } from 'src/app/services/api-service.service';
+import { ApiService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-main-component',
   templateUrl: './main-component.component.html',
   styleUrls: ['./main-component.component.css']
 })
-export class MainComponentComponent implements OnInit {
+export class MainComponent implements OnInit {
   dogsBreedsList!: DogBreed[];
 
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.prepareDogsBreedsList();

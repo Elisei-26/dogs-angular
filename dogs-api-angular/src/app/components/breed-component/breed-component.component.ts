@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServiceService } from 'src/app/services/api-service.service';
+import { ApiService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-breed-component',
   templateUrl: './breed-component.component.html',
   styleUrls: ['./breed-component.component.css']
 })
-export class BreedComponentComponent implements OnInit {
+export class BreedComponent implements OnInit {
+  isVisible: boolean = false;
   dogBreed: string = window.location.href;
   dogBreedPhoto!: string;
   dogSubBreedsList!: string[];
 
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.prepareDogBreedFromUrl();
@@ -31,6 +32,7 @@ export class BreedComponentComponent implements OnInit {
         this.dogBreedPhoto = photoUrl.message;
       },
       error: (errorText: string) => {
+        this.dogBreed = "there is no such dog breed";
         console.log(errorText);
       }
     });
@@ -39,8 +41,10 @@ export class BreedComponentComponent implements OnInit {
   prepareDogSubBreeds(): void {
     this.apiService.getDogsBreedsList().subscribe({
       next: (dogsBreedsList: any) => {
-        console.log(dogsBreedsList.message[this.dogBreed]);
         this.dogSubBreedsList = dogsBreedsList.message[this.dogBreed];
+        if (dogsBreedsList.message[this.dogBreed] != undefined && dogsBreedsList.message[this.dogBreed].length != 0) {
+          this.isVisible = true;
+        }
       },
       error: (errorText: string) => {
         console.log(errorText);

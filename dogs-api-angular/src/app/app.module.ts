@@ -3,18 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainComponentComponent } from './components/main-component/main-component.component';
-import { BreedComponentComponent } from './components/breed-component/breed-component.component';
-import { BreedSubTreeComponentComponent } from './components/breed-sub-tree-component/breed-sub-tree-component.component';
+import { MainComponent } from './components/main-component/main-component.component';
+import { BreedComponent } from './components/breed-component/breed-component.component';
+import { BreedSubTreeComponent } from './components/breed-sub-tree-component/breed-sub-tree-component.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UnknownRouteComponent } from './components/unknown-route/unknown-route.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponentComponent,
-    BreedComponentComponent,
-    BreedSubTreeComponentComponent,
+    MainComponent,
+    BreedComponent,
+    BreedSubTreeComponent,
     UnknownRouteComponent
   ],
   imports: [

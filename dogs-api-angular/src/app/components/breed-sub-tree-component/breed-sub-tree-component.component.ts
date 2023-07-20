@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiServiceService } from 'src/app/services/api-service.service';
+import { ApiService } from 'src/app/services/api-service.service';
 
 @Component({
   selector: 'app-breed-sub-tree-component',
   templateUrl: './breed-sub-tree-component.component.html',
   styleUrls: ['./breed-sub-tree-component.component.css']
 })
-export class BreedSubTreeComponentComponent implements OnInit {
+export class BreedSubTreeComponent implements OnInit {
   dogBreed: string = window.location.href;
   dogSubBreed!: string;
   dogSubBreedPhoto!: string;
+  dogSubBreedsList!: string[];
 
-  constructor(private apiService: ApiServiceService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.prepareDogSubBreedFromUrl();
     this.prepareDogSubBreedPhoto();
+    this.prepareDogSubBreeds();
   }
 
   prepareDogSubBreedFromUrl(): void {
@@ -31,6 +33,30 @@ export class BreedSubTreeComponentComponent implements OnInit {
     this.apiService.getDogBreedPhoto(this.dogBreed).subscribe({
       next: (photoUrl) => {
         this.dogSubBreedPhoto = photoUrl.message;
+      },
+      error: (errorText: string) => {
+        this.dogBreed = "there is no such dog breed";
+        this.dogSubBreed = "there is no such dog sub breed";
+        console.log(errorText);
+      }
+    });
+  }
+
+  prepareDogSubBreeds(): void {
+    this.apiService.getDogsBreedsList().subscribe({
+      next: (dogsBreedsList: any) => {
+        this.dogSubBreedsList = dogsBreedsList.message[this.dogBreed];
+        let flag = false;
+        for (let i = 0; i < this.dogSubBreedsList.length; ++i) {
+          if (this.dogSubBreedsList[i] === this.dogSubBreed) {
+            flag = true;
+            break;
+          }
+        }
+        if (flag === false) {
+          this.dogBreed = "there is no such dog breed";
+          this.dogSubBreed = "there is no such dog sub breed";
+        }
       },
       error: (errorText: string) => {
         console.log(errorText);
