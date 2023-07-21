@@ -1,0 +1,17 @@
+<div>
+	<div class="my-custom-div">
+		<button type="button">
+			<a class="my-custom-link" href="">All Dogs</a>
+		</button>
+	</div>
+	<h3>{{ breed }}</h3>
+	<div>
+		<img src="{{ breedPhoto }}" />
+	</div>
+	<h3 *ngIf="isVisible">Sub-breed</h3>
+	<ul>
+		<li *ngFor="let subBreed of subBreedsList | keyvalue">
+			<a href="breed/{{ breed }}/{{ subBreed.value }}">{{ subBreed.value }}</a>
+		</li>
+	</ul>
+</div>
