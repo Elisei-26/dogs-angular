@@ -1,1 +1,1 @@
-# dogs-angular-api
+# dogs-angular
