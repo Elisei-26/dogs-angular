@@ -1,3 +1,3 @@
 export interface DogBreed {
-    [breed: string]: string[];
+	[breed: string]: string[];
 }

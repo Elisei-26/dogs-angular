@@ -1,20 +1,20 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: "root",
 })
 export class ApiService {
-  private apiUrl: string = "https://dog.ceo/api/";
+	private apiUrl: string = "https://dog.ceo/api/";
 
-  constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
-  getDogsBreedsList(): Observable<any> {
-    return this.httpClient.get<any>(this.apiUrl + 'breeds/list/all');
-  }
+	getDogsBreedsList(): Observable<any> {
+		return this.httpClient.get<any>(this.apiUrl + "breeds/list/all");
+	}
 
-  getDogBreedPhoto(dogBreed: string): Observable<any> {
-    return this.httpClient.get<any>(this.apiUrl + `breed/${dogBreed}/images/random`);
-  }
+	getDogBreedPhoto(dogBreed: string): Observable<any> {
+		return this.httpClient.get<any>(this.apiUrl + `breed/${dogBreed}/images/random`);
+	}
 }
