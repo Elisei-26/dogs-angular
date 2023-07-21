@@ -1,0 +1,12 @@
+<div>
+    <h2>
+        <b>Dogs</b>
+    </h2>
+    <div class="my-custom-div">
+        <ul>
+            <li *ngFor="let breed of breedsList | keyvalue">
+                <a href="breed/{{breed.key}}">{{ breed.key }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
