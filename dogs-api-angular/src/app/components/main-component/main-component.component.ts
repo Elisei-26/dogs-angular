@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DogBreed } from '../DogBreed';
+import { DogBreed } from '../dog-breed';
 import { ApiService } from 'src/app/services/api-service.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api-service.service';
   styleUrls: ['./main-component.component.css']
 })
 export class MainComponent implements OnInit {
-  dogsBreedsList!: DogBreed[];
+  breedsList!: DogBreed[];
 
   constructor(private apiService: ApiService) { }
 
@@ -19,7 +19,7 @@ export class MainComponent implements OnInit {
   prepareDogsBreedsList(): void {
     this.apiService.getDogsBreedsList().subscribe({
       next: (dogsBreedsList: any) => {
-        this.dogsBreedsList = dogsBreedsList.message as DogBreed[];
+        this.breedsList = dogsBreedsList.message as DogBreed[];
       },
       error: (errorText: string) => {
         console.log(errorText);

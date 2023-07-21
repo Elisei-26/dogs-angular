@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-breed-component',
@@ -8,11 +9,11 @@ import { ApiService } from 'src/app/services/api-service.service';
 })
 export class BreedComponent implements OnInit {
   isVisible: boolean = false;
-  dogBreed: string = window.location.href;
-  dogBreedPhoto!: string;
-  dogSubBreedsList!: string[];
+  breed: string = "";
+  breedPhoto: string = "";
+  subBreedsList: string[] = [];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.prepareDogBreedFromUrl();
@@ -21,18 +22,18 @@ export class BreedComponent implements OnInit {
   }
 
   prepareDogBreedFromUrl(): void {
-    let i: number;
-    for (i = this.dogBreed.length - 1; this.dogBreed[i] != "/"; --i) { }
-    this.dogBreed = this.dogBreed.substring(i + 1, this.dogBreed.length);
+    this.activatedRoute.params.subscribe((params) => {
+      this.breed = params["breed"];
+    });
   }
 
   prepareDogBreedPhoto(): void {
-    this.apiService.getDogBreedPhoto(this.dogBreed).subscribe({
+    this.apiService.getDogBreedPhoto(this.breed).subscribe({
       next: (photoUrl) => {
-        this.dogBreedPhoto = photoUrl.message;
+        this.breedPhoto = photoUrl.message;
       },
       error: (errorText: string) => {
-        this.dogBreed = "there is no such dog breed";
+        this.breed = "there is no such dog breed";
         console.log(errorText);
       }
     });
@@ -41,14 +42,18 @@ export class BreedComponent implements OnInit {
   prepareDogSubBreeds(): void {
     this.apiService.getDogsBreedsList().subscribe({
       next: (dogsBreedsList: any) => {
-        this.dogSubBreedsList = dogsBreedsList.message[this.dogBreed];
-        if (dogsBreedsList.message[this.dogBreed] != undefined && dogsBreedsList.message[this.dogBreed].length != 0) {
-          this.isVisible = true;
-        }
+        this.subBreedsList = dogsBreedsList.message[this.breed];
+        this.ifBreedHaveSubBreeds();
       },
       error: (errorText: string) => {
         console.log(errorText);
       }
     });
+  }
+
+  ifBreedHaveSubBreeds() {
+    if (this.subBreedsList != undefined && this.subBreedsList.length != 0) {
+      this.isVisible = true;
+    }
   }
 }

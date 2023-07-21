@@ -8,8 +8,8 @@ import { UnknownRouteComponent } from './components/unknown-route/unknown-route.
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
-  { path: 'breed/:name', component: BreedComponent, pathMatch: 'full' },
-  { path: 'breed/:name/:sub-breed', component: BreedSubTreeComponent, pathMatch: 'full' },
+  { path: 'breed/:breed', component: BreedComponent, pathMatch: 'full' },
+  { path: 'breed/:breed/:sub-breed', component: BreedSubTreeComponent, pathMatch: 'full' },
   { path: '404', component: UnknownRouteComponent },
   { path: '**', redirectTo: '/404' }
 ];

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-breed-sub-tree-component',
@@ -7,12 +8,12 @@ import { ApiService } from 'src/app/services/api-service.service';
   styleUrls: ['./breed-sub-tree-component.component.css']
 })
 export class BreedSubTreeComponent implements OnInit {
-  dogBreed: string = window.location.href;
-  dogSubBreed!: string;
-  dogSubBreedPhoto!: string;
-  dogSubBreedsList!: string[];
+  breed: string = "";
+  subBreed: string = "";
+  subBreedPhoto: string = "";
+  subBreedsList: string[] = [];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.prepareDogSubBreedFromUrl();
@@ -21,22 +22,20 @@ export class BreedSubTreeComponent implements OnInit {
   }
 
   prepareDogSubBreedFromUrl(): void {
-    let i: number;
-    for (i = this.dogBreed.length - 1; this.dogBreed[i] != "/"; --i) { }
-    this.dogSubBreed = this.dogBreed.substring(i + 1, this.dogBreed.length);
-    let j: number;
-    for (j = i - 1; this.dogBreed[j] != "/"; --j) { }
-    this.dogBreed = this.dogBreed.substring(j + 1, i);
+    this.activatedRoute.params.subscribe((params) => {
+      this.breed = params["breed"];
+      this.subBreed = params["sub-breed"];
+    });
   }
 
   prepareDogSubBreedPhoto(): void {
-    this.apiService.getDogBreedPhoto(this.dogBreed).subscribe({
+    this.apiService.getDogBreedPhoto(this.breed).subscribe({
       next: (photoUrl) => {
-        this.dogSubBreedPhoto = photoUrl.message;
+        this.subBreedPhoto = photoUrl.message;
       },
       error: (errorText: string) => {
-        this.dogBreed = "there is no such dog breed";
-        this.dogSubBreed = "there is no such dog sub breed";
+        this.breed = "there is no such dog breed";
+        this.subBreed = "there is no such dog sub breed";
         console.log(errorText);
       }
     });
@@ -45,22 +44,25 @@ export class BreedSubTreeComponent implements OnInit {
   prepareDogSubBreeds(): void {
     this.apiService.getDogsBreedsList().subscribe({
       next: (dogsBreedsList: any) => {
-        this.dogSubBreedsList = dogsBreedsList.message[this.dogBreed];
-        let flag = false;
-        for (let i = 0; i < this.dogSubBreedsList.length; ++i) {
-          if (this.dogSubBreedsList[i] === this.dogSubBreed) {
-            flag = true;
-            break;
-          }
-        }
-        if (flag === false) {
-          this.dogBreed = "there is no such dog breed";
-          this.dogSubBreed = "there is no such dog sub breed";
-        }
+        this.subBreedsList = dogsBreedsList.message[this.breed];
+        this.checkSubBreedIsInSubBreedList();
       },
       error: (errorText: string) => {
         console.log(errorText);
       }
     });
+  }
+
+  checkSubBreedIsInSubBreedList(): void {
+    let flag = false;
+    for (let i = 0; i < this.subBreedsList.length; ++i) {
+      if (this.subBreedsList[i] === this.subBreed) {
+        flag = true;
+        break;
+      }
+    }
+    if (flag === false) {
+      this.subBreed = "there is no such dog sub breed";
+    }
   }
 }

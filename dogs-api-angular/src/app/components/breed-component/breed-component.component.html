@@ -1,17 +1,17 @@
 <div>
-    <div class="myCustomDiv">
+    <div class="my-custom-div">
         <button type="button">
-            <a class="myCustomLink" href="">All Dogs</a>
+            <a class="my-custom-link" href="">All Dogs</a>
         </button>
     </div>
-    <h3>{{dogBreed}}</h3>
+    <h3>{{breed}}</h3>
     <div>
-        <img src={{dogBreedPhoto}}>
+        <img src={{breedPhoto}}>
     </div>
     <h3 *ngIf="isVisible">Sub-breed</h3>
     <ul>
-        <li *ngFor="let dogSubBreed of dogSubBreedsList | keyvalue">
-            <a href="breed/{{dogBreed}}/{{dogSubBreed.value}}">{{ dogSubBreed.value }}</a>
+        <li *ngFor="let subBreed of subBreedsList | keyvalue">
+            <a href="breed/{{breed}}/{{subBreed.value}}">{{ subBreed.value }}</a>
         </li>
     </ul>
 </div>
