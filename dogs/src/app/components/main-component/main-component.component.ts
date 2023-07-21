@@ -8,7 +8,7 @@ import { ApiService } from 'src/app/services/api-service.service';
   styleUrls: ['./main-component.component.css']
 })
 export class MainComponent implements OnInit {
-  breedsList!: DogBreed[];
+  breedsList: DogBreed[] = [];
 
   constructor(private apiService: ApiService) { }
 

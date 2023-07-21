@@ -11,7 +11,7 @@ export class BreedSubTreeComponent implements OnInit {
   breed: string = "";
   subBreed: string = "";
   subBreedPhoto: string = "";
-  subBreedsList: string[] = [];
+  subBreedList: string[] = [];
 
   constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute) { }
 
@@ -44,7 +44,7 @@ export class BreedSubTreeComponent implements OnInit {
   prepareDogSubBreeds(): void {
     this.apiService.getDogsBreedsList().subscribe({
       next: (dogsBreedsList: any) => {
-        this.subBreedsList = dogsBreedsList.message[this.breed];
+        this.subBreedList = dogsBreedsList.message[this.breed];
         this.checkSubBreedIsInSubBreedList();
       },
       error: (errorText: string) => {
@@ -54,14 +54,7 @@ export class BreedSubTreeComponent implements OnInit {
   }
 
   checkSubBreedIsInSubBreedList(): void {
-    let flag = false;
-    for (let i = 0; i < this.subBreedsList.length; ++i) {
-      if (this.subBreedsList[i] === this.subBreed) {
-        flag = true;
-        break;
-      }
-    }
-    if (flag === false) {
+    if (!this.subBreedList.includes(this.subBreed)) {
       this.subBreed = "there is no such dog sub breed";
     }
   }

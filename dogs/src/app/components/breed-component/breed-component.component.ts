@@ -51,9 +51,7 @@ export class BreedComponent implements OnInit {
     });
   }
 
-  ifBreedHaveSubBreeds() {
-    if (this.subBreedsList != undefined && this.subBreedsList.length != 0) {
-      this.isVisible = true;
-    }
+  ifBreedHaveSubBreeds(): void {
+    this.isVisible = this.subBreedsList != undefined && this.subBreedsList.length != 0;
   }
 }
