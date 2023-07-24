@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -11,8 +13,8 @@ import { UnknownRouteComponent } from "./components/unknown-route/unknown-route.
 
 @NgModule({
 	declarations: [AppComponent, MainComponent, BreedComponent, BreedSubTreeComponent, UnknownRouteComponent],
-	imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+	imports: [BrowserModule, AppRoutingModule, HttpClientModule, ButtonModule, CardModule],
 	providers: [],
 	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

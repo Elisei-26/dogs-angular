@@ -16,7 +16,7 @@ export class BreedComponent implements OnInit {
 	constructor(
 		private apiService: ApiService,
 		private activatedRoute: ActivatedRoute,
-	) {}
+	) { }
 
 	ngOnInit(): void {
 		this.prepareDogBreedFromUrl();

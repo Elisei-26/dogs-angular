@@ -1,12 +1,13 @@
 <div>
 	<div class="my-custom-div">
-		<button type="button">
+		<p-button>
 			<a href="">All Dogs</a>
-		</button>
+		</p-button>
 	</div>
-	<h2>{{ breed }}</h2>
-	<h3>{{ subBreed }}</h3>
-	<div>
-		<img src="{{ subBreedPhoto }}" />
-	</div>
+	<p-card header="{{ breed }}">
+		<h3>{{ subBreed }}</h3>
+		<div>
+			<img src="{{ subBreedPhoto }}" />
+		</div>
+	</p-card>
 </div>
