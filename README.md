@@ -17,3 +17,4 @@ The name of breed and sub-breed are taken from second component.
 The forth component is is unknown-route-component. It is displayed when the user change the url of page.
 
 For api calls I used a service calld ApiService which uses HttpClient.
+![image](https://github.com/Elisei-26/dogs-angular/assets/81551154/33752064-bbcc-4287-8c2c-4d45b4be491d)
