@@ -64,8 +64,6 @@ export class BreedSubTreeComponent implements OnInit {
 	}
 
 	goToMainComponent(): void {
-		this.activatedRoute.params.subscribe(() => {
-			this.router.navigateByUrl("");
-		});
+		this.router.navigateByUrl("");
 	}
 }
