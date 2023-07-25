@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "src/app/services/api-service.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
 	selector: "app-breed-component",
@@ -16,6 +16,7 @@ export class BreedComponent implements OnInit {
 	constructor(
 		private apiService: ApiService,
 		private activatedRoute: ActivatedRoute,
+		private router: Router
 	) { }
 
 	ngOnInit(): void {
@@ -56,5 +57,11 @@ export class BreedComponent implements OnInit {
 
 	checkSubBreeds(): void {
 		this.isVisible = this.subBreedsList?.length !== 0;
+	}
+
+	goToMainComponent(): void {
+		this.activatedRoute.params.subscribe(() => {
+			this.router.navigateByUrl("");
+		});
 	}
 }
