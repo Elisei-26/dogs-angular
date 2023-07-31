@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "src/app/services/api-service.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
 	selector: "app-breed-sub-tree-component",
@@ -16,7 +16,8 @@ export class BreedSubTreeComponent implements OnInit {
 	constructor(
 		private apiService: ApiService,
 		private activatedRoute: ActivatedRoute,
-	) {}
+		private router: Router
+	) { }
 
 	ngOnInit(): void {
 		this.prepareDogSubBreedFromUrl();
@@ -60,5 +61,9 @@ export class BreedSubTreeComponent implements OnInit {
 		if (!this.subBreedList.includes(this.subBreed)) {
 			this.subBreed = "there is no such dog sub breed";
 		}
+	}
+
+	goToMainComponent(): void {
+		this.router.navigateByUrl("");
 	}
 }
